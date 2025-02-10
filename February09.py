@@ -8,5 +8,5 @@ print(dir(curString))
 curAge = 18
 print(dir(curAge))
 
-curList = [curString, curAge]
+curList = [curAge, curString]
 print(dir(curList))
