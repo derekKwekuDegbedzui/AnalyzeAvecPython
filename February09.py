@@ -4,3 +4,9 @@
 # using dir to get applicable functions
 curString = 'Mawunyo'
 print(dir(curString))
+
+curAge = 18
+print(dir(curAge))
+
+curList = [curString, curAge]
+print(dir(curList))
