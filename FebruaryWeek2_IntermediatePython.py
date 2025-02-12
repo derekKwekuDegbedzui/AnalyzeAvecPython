@@ -1,8 +1,9 @@
 ## February Week 2
 # https://youtube.com/playlist?list=PL30AETbxgR-cbPtjzN9Sz4WIcl1oBUCcC&si=LyO9_3l__gwAxN0V
 
-# Alt + Shift + E : run higlighted line
+# Alt + Shift + E : run highlighted line
 # Ctrl + Shift + F10: run current file
+# Shift + F6: refactor variable name
 
 # Parameters, arguments, positive and keyword arguments
 
@@ -106,3 +107,67 @@ print(set(cur_out))
 cur_list = [1, 'a', 0, False, True, '0', None, 12, 'Hello']
 result = filter(None, cur_list)
 print(list(result))
+
+
+## Lambda
+
+square_it = lambda n: n**2
+print(square_it(12))
+
+numNum = [1, 2, 4, 5, 8, 11]
+print(list(map(square_it, numNum)))
+
+get_odd_numbers = lambda x: x % 2 != 0
+print(list(filter(get_odd_numbers, numNum)))
+
+
+## Using 'Else' with 'For' Loops
+# else block is executed if for loop completes without encoutering a break statement
+target = 6
+cur_num = [0, 1, 2, 3, 4, 5, 7, 8]
+#cur_num.insert(target, target)
+for num in cur_num:
+    if num == target:
+        print(f'Found {target}')
+        break   # if break is executed, the else block is skipped
+else:
+    print(f'{target} not found in the list')
+
+## Zip and Unzip
+# zip() combines multiple iterables into single iterables of tuples
+# zip(*) reverses the process, to produce individual list or iterables
+
+first_names = ['Albert', 'Bernard', 'Cindy', 'Dandrel']
+last_names = ['Amt', 'Bob', 'Cam']
+ages = [20, 25, 30]
+
+for i in range(len(last_names)):
+    print(f'{first_names[i]} {last_names[i]} is {ages[i]} years old')
+
+for first_name, last_name, age in zip(first_names, last_names, ages):
+    print(f'{first_name} {last_name} is {age} years old')
+
+# creating dict
+keys = ['name', 'age', 'city']
+values = ['Albert', 20, 'Sana ne']
+directory = dict(zip(keys, values))
+print(directory)
+
+# zip unequal multiple sized iterables
+print(list(zip(first_names, last_names)))
+
+# handling unequal lengths
+from itertools import zip_longest
+print(list(zip_longest(first_names, last_names, fillvalue='N/A')))
+
+
+# using unzip
+full_dir = [
+    ('Albert', 'Amt', 23),
+    ('Belly', 'Bob', 28),
+    ('Cindy', 'Cam', 31),
+    ('Debby', 'Dood', 36)
+]
+
+first_names, last_names, ages = list(zip(*full_dir))
+print(f'{first_names}\n {last_names}\n {ages}')
