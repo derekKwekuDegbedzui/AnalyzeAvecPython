@@ -117,8 +117,48 @@ print(square_it(12))
 numNum = [1, 2, 4, 5, 8, 11]
 print(list(map(square_it, numNum)))
 
+z = lambda a, b, c: a + b + c
+print(z(a=1, b=2, c=3))
+print(z(1, 2, 3))
+
 get_odd_numbers = lambda x: x % 2 != 0
 print(list(filter(get_odd_numbers, numNum)))
+
+greet_lambda = lambda: print('Hello Word')
+greet_lambda()
+
+# 1. can be invoked immediately, unlike functions
+(lambda x, y: x**y)(5, 3)
+
+# 2. frequently used with map, reduce, filter
+from functools import reduce
+num = list(range(7))
+print(num)
+print(list(map(lambda a: a*a, num)))
+print(reduce(lambda a, b: a + b, num))
+print(list(filter(lambda a: a % 2 == 0, num)))
+
+# 3. can be nested
+nested_lambda = lambda a, b: a + b(a)
+print(nested_lambda(10, lambda a: a*2))
+
+## Python reduce function
+# reduces sequence of elements into single value
+# by repeatedly applying a specified function
+# reduce(function, iterable [, initializer])
+from functools import reduce
+num = list(range(6))
+def get_sum(x, y):
+    # print(f'{x} + {y}')
+    return x + y
+print(reduce(get_sum, num))
+print(reduce(get_sum, num, 15))
+
+# reduce with lambda functions
+nums = list(range(0, 13, 2))
+print(reduce(lambda x, y: x if x > y else y, nums))     # find max
+print(reduce(lambda x, y: x if x < y else y, nums))     # find min
+
 
 
 ## Using 'Else' with 'For' Loops
@@ -171,3 +211,105 @@ full_dir = [
 
 first_names, last_names, ages = list(zip(*full_dir))
 print(f'{first_names}\n {last_names}\n {ages}')
+
+## Python collections: list, tuples, sets, dicts
+# create empty list, tuples, sets, dicts
+# create non-empty list, tuples, sets, dicts
+# accessing data: indexing
+# changing entries: item assignment
+# adding and removing entries
+# sorting
+
+# creating empty collections
+list1, list2 = [], list()
+print(f'{type(list1)} vs {type(list2)}')
+
+tuple1, tuple2 = (), tuple()
+print(f'{type(tuple1)} vs {type(tuple2)}')
+
+set1, set2 = {*()}, set()
+print(f'{type(set1)} vs {type(set1)}')
+
+dict1, dict2 = {}, dict()
+print(f'{type(dict1)} vs {type(dict2)}')
+
+# creating non-empty collections
+# casting: set removes duplicates | True same as 1, hence removed
+list3 = [1, 2, 2, True, 'a', 'a', 'c']
+tuple3 = (1, 2, 2, True, 'a', 'a', 'c')
+set3 = {1, 2, 2, True, 'a', 'a', 'c'}
+
+print(f'{list3}\n {list(list3)}\n {list(tuple3)}\n {list(set3)}')
+print(f'{tuple3}\n {tuple(list3)}\n {tuple(tuple3)}\n {tuple(set3)}')
+print(f'{set3}\n {set(list3)}\n {set(tuple3)}\n {set(set3)}')
+
+dict3 = {1: 'apple', 2: 'cherry', 3: 'strawberry'}
+# SyntaxError dict4 = dict([1: 'apple', 2: 'cherry', 3: 'strawberry'])
+# Error dict4 = dict((1: 'apple', 2: 'cherry', 3: 'strawberry'))
+dict5 = dict({1: 'apple', 2: 'cherry', 3: 'strawberry'})
+print(f'{dict3}\n {dict5}')
+
+# accessing data: indexing
+# set are unordered, so indexing not possible
+print(f'{list3[3]}\n {list3[-1]}\n {list3[0:2]}')
+print(f'{tuple3[3]}\n {tuple3[-1]}\n {tuple3[0:2]}')
+print(f'{dict3[1]}\n {dict3.keys()}\n {dict3.values()}\n {dict3.items()}')
+
+# changing entries
+# Tuple are immutable, sets are unordered
+print(list3)
+list3[1] = 15
+print(list3)
+
+print(dict3)
+dict3[1] = 'banana'     # change key
+print(dict3)
+
+dict3[4] = dict3.pop(2)     # change entry
+print(dict3)
+
+# adding and removing values
+# tuple immutable
+print(list3)
+list3.append('d')
+print(list3)
+
+list3.pop(0)    # pop/remove item at index 0
+print(list3)
+
+print(set3)
+set3.add(12)
+print(set3)
+
+set3.pop()      # always removes a random value, unordered so no index use
+print(set3)
+
+print(dict3)
+dict3.update({4: 'banana'})
+print(dict3)
+
+dict3.pop(1)    # remove item at key 1
+print(dict3)
+
+# sorting
+list4 = [1, 2, 2, 1, 8, 3, 7]
+print(list4)
+print(list4.sort())     # sort makes changes to original, no return value
+list4.sort()
+print(list4)
+list4.sort(reverse=True)
+print(list4)
+print(sorted(list4))    # sorted returns a copy, returned sorted copy
+
+tuple4 = tuple(list4)
+print(tuple4)
+print(sorted(tuple4))   # only possible with sorted, returns sorted list
+
+set4 = set(list4)
+print(set4)
+print(sorted(set4))     # unordered, returns sorted list
+
+print(dict3)
+print(sorted(dict3))
+print(sorted(dict3.items()))
+
