@@ -313,3 +313,44 @@ print(dict3)
 print(sorted(dict3))
 print(sorted(dict3.items()))
 
+## Classes and Objects, Inheritance
+# class: blueprint for creating objects
+# defines attributes (variables) and methods (functions)
+# object: instance of a class
+# Inheritance: child class inherits methods and attributes from parent class
+# Outstanding concepts: Encapsulation, Polymorphism
+
+
+class Student:
+    def __init__(self, first, last, major):
+        self.first_name = first
+        self.last_name = last
+        self.major = major
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}: {self.major}"
+
+    def change_major(self, new_major):
+        self.major = new_major
+        print(f'Major of {self.first_name} {self.last_name} changed to "{self.major}"')
+
+
+student_1 = Student('John', 'Deere', 'Computer Science')
+print(student_1)
+student_1.change_major('Mechanical Engineering')
+print(student_1)
+
+
+class ExchangeStudent(Student):
+    def __init__(self, first_name, last_name, major, home_university):
+        super().__init__(first_name, last_name, major)
+        self.home_university = home_university
+
+    # overrides the __str__ method in parent class
+    def __str__(self):
+        return f"{super().__str__()} | Home University: {self.home_university}"
+
+
+exchange_student = ExchangeStudent('Evan', 'Hill', 'Biology', 'Concordia University')
+print(exchange_student)
+
