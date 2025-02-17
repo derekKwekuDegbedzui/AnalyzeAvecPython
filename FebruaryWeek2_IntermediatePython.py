@@ -354,3 +354,78 @@ class ExchangeStudent(Student):
 exchange_student = ExchangeStudent('Evan', 'Hill', 'Biology', 'Concordia University')
 print(exchange_student)
 
+## Python Decorators
+# decorator: function that modifies the behaviour of another function without changing structure
+# used to wrap another function to add functionality before or after the function call
+# a function can take another function | a function can return another function
+
+def decorator_2(outside_func_2):
+    def wrapper_2(*args, **kwargs):
+        print('Wrapper function 2 executed')
+        return outside_func_2(*args, *kwargs)
+    # return wrapper_2()
+    return wrapper_2
+
+def decorator_1(outside_func_1):
+    def wrapper_1():
+        print('Wrapper function 1 executed')
+        return outside_func_1()
+    # return wrapper_1()
+    return wrapper_1
+
+def regular_1():
+    print('Regular function 1 executed')
+
+# decorator_1(regular_1)
+regular_decorated_1 = decorator_1(regular_1)
+regular_decorated_1()
+#
+@decorator_1
+@decorator_2
+def regular_2():
+    print('Regular function 2 executed')
+
+# regular_decorated_2 = decorator_2(decorator_1(regular_1))
+# regular_decorated_2()
+regular_2()
+
+# using decorators with arguments
+@ decorator_2
+def regular_3(arg):
+    print(f"Regular function executed with arg: {arg}")
+
+regular_3('test')
+
+
+def greet_decorator(func):
+    def wrapper(name):
+        print('Starting the function')
+        func(name)
+        print('Function executed')
+    return wrapper
+
+@greet_decorator
+def greet(name):
+    print(f'Hello {name}')
+
+greet('Semenyo')
+
+# presserving metadata
+# wrapper fn overwrites name and docstring of original function
+from functools import wraps
+
+def smart_decorator(func):
+    @wraps(func)    # preserves metadata
+    def wrapper(*args, **kwargs):
+        """Docstring for wrapper function"""
+        print('Calling function ...')
+        return func(*args, **kwargs)
+    return wrapper
+
+@smart_decorator
+def add(a, b):
+    """Adds two numbers"""
+    return a + b
+
+print(add.__name__)
+print(add.__doc__)
