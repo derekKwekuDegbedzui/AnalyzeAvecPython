@@ -61,3 +61,48 @@ gen = count_up_to(5)    # Creates a generator object
 # iterate over the generator
 for num in gen:
     print(num)
+
+
+## JSON in Python : Javascript object notation
+
+import json
+
+cur_dict = {
+    'name': 'John Doe',
+    'age': 30,
+    'is_student': False,
+    'hobbies': ['swimming', 'biking'],
+    'phone_number': None,
+    'address': {'city': 'New York', 'zip': '10001'}
+}
+
+print(cur_dict)
+print(type(cur_dict))
+
+cur_json = json.dumps(cur_dict)
+print(cur_json)
+print(type(cur_json))
+
+json_data = '{"name": "John Doe", "age": 30, "is_student": false,\
+            "hobbies": ["swimming", "biking"], "phone_number": null, \
+            "address": {"city": "New York", "zip": "10001"}}'
+print(json_data)
+print(type(json_data))
+
+new_dict = json.loads(json_data)
+print(new_dict)
+print(type(new_dict))
+
+# accessing individual pieces
+print(new_dict['address']['city'])
+
+# writing JSON to file
+with open('dataFeb19.json', 'w') as json_file:
+    json.dump(cur_dict, json_file)
+print('Saving completed')
+
+# convert it back to json
+with open('dataFeb19.json', 'r') as now_json_file:
+    cur_data = json.load(now_json_file)
+    print(cur_data)
+

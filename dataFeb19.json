@@ -1,0 +1,1 @@
+{"name": "John Doe", "age": 30, "is_student": false, "hobbies": ["swimming", "biking"], "phone_number": null, "address": {"city": "New York", "zip": "10001"}}
