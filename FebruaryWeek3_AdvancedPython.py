@@ -106,3 +106,24 @@ with open('dataFeb19.json', 'r') as now_json_file:
     cur_data = json.load(now_json_file)
     print(cur_data)
 
+## Context Manegers, with Statement
+# Why use Context Managers?
+file = open("hello.txt", 'w')
+file.write("Hello, World!")
+file.close()
+print(file.closed)
+
+file = open("helloV2.txt", 'w')
+file.write("Hello, World!")
+file.write(str(10/0))
+file.close()
+print(file.closed)
+file.close()
+
+# The "with" statement
+with open("helloV3.txt", "w") as file:
+    file.write("Hello, World! (Context Manager)")
+    file.write(str(10/0))
+print(file.closed)
+
+# built-in context manager
