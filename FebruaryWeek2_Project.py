@@ -93,3 +93,60 @@ print(data[data["Salary"] > 100000])
 print(data[(data["Salary"] > 100000) & (data["Salary"] < 200000)])
 
 print(data[data["Age"].isin([20, 65])])
+
+## 4 - Descriptive statistics
+
+import numpy as np
+from scipy import stats
+
+data = [100, 20, 5, 20, 45, -100, 46]
+cur_mean = np.mean(data)
+print(f'Mean: {cur_mean}')
+# if mean != median, data is skewed
+cur_median = np.median(data)
+print(f'Median: {cur_median}')
+cur_mode = stats.mode(data)
+print(f'Mode: {cur_mode}')
+# std = sqrt of variance - average distance between each data point and mean
+cur_var = np.var(data)
+cur_std = np.std(data)
+print(f'Var = {cur_var} | Std = {cur_std}')
+
+# descriptive statistics of pd
+print(data_csv.describe())  # 1st quantile 25%, 2nd quantile 50%, 3rd quantile 75%
+
+## Data merging - joins
+
+# Creating 2 dataframes
+data1 = pd.DataFrame({
+    'key': ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+    'value1': [1, 2, 3, 4, 5, 6, 7]
+})
+
+data2 = pd.DataFrame({
+    'key': ['C', 'D', 'E', 'F', 'G', 'H'],
+    'value2': [8, 9, 10, 11, 12, 13]
+})
+print(data1)
+print(data2)
+
+# inner join
+merge_innerjoin = pd.merge(data1, data2, on='key', how='inner')
+print(merge_innerjoin)
+
+# left join
+merge_leftjoin = pd.merge(data1, data2, on='key', how='left')
+print(merge_leftjoin)
+
+# right join
+merge_rightjoin = pd.merge(data1, data2, on='key', how='right')
+print(merge_rightjoin)
+
+# anti-join
+# axis = 0: row
+# axis = 1: column
+merge_anti_join = pd.merge(data1, data2, on='key', how='left', indicator=True)
+print(merge_anti_join)
+merge_left_anti_join = merge_anti_join[merge_anti_join['_merge'] == 'left_only']
+print(merge_left_anti_join)
+print(merge_left_anti_join.drop('_merge', axis=1))
