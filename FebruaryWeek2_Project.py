@@ -63,4 +63,33 @@ print(cur_data)
 print(cur_data.loc['X'])
 print(cur_data.loc[:, 'A2'])
 
+## 3 - Data aggregation, filtering, sorting, grouping
 
+# Create a DataFrame with sample data
+data = pd.DataFrame({
+    'Name': ["Anna", "Karen", "John", "Alice", "Kevin", "Sanna", "Bob", "Emily"],
+    'Age': [35, 30, 57, 65, 25, 19, 20, 65],
+    'Salary': [20000, 60000, 145000, 170000, 30000, 10000, 220000, 120000],
+    'Department': ["Tech", "Tech", "Tech", "Healthcare", "Operations", "Operations", "Tech", "Tech"]
+})
+
+print(data)
+
+# ascending
+print(data.sort_values(by='Salary', ascending=True))
+
+# descending
+print(data.sort_values(by='Salary', ascending=False))
+
+# group data
+print(data.groupby("Department").count())
+print(data.groupby("Department")["Name"].count())
+print(data.groupby("Department")["Salary"].mean())
+print(data.groupby("Department")["Salary"].min())
+print(data.groupby("Department")["Age"].mean())
+
+# filtering: boolean, isin
+print(data[data["Salary"] > 100000])
+print(data[(data["Salary"] > 100000) & (data["Salary"] < 200000)])
+
+print(data[data["Age"].isin([20, 65])])
